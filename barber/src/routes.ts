@@ -4,6 +4,8 @@ import { CreateUserController } from './controllers/user/CreateUserController';
 import { AuthUserController } from './controllers/user/AuthUserController';
 import { DetailUserController } from './controllers/user/DetailUserController';
 
+import { isAuthenticated } from './middlewares/isAuthenticated';
+
 const router = Router();
 
 // router.get('/teste', (req: Request, res: Response) => {
@@ -14,7 +16,7 @@ const router = Router();
 // --- ROTAS DE USUÁRIO ---
 router.post('/users', new CreateUserController().handle);
 router.post('/login', new AuthUserController().handle);
-router.get('/me', new DetailUserController().handle);
+router.get('/me', isAuthenticated, new DetailUserController().handle);
 
 
 
