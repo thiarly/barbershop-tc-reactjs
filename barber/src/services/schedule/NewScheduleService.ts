@@ -3,19 +3,19 @@ import prismaClient from "../../prisma";
 interface NewScheduleRequest{
     user_id: string;
     haircut_id: string;
-    customerId: string;
+    customer: string;
 }
 
 class NewScheduleService{
-    async execute({ user_id, haircut_id, customerId }: NewScheduleRequest){
+    async execute({ user_id, haircut_id, customer }: NewScheduleRequest){
 
-        if (customerId === ''|| haircut_id === ''){
+        if (customer === ''|| haircut_id === ''){
             throw new Error("Erro ao criar agendamento");
         };
 
         const schedule = await prismaClient.service.create({
             data: {
-                customerId,
+                customer,
                 haircut_id,
                 user_id,
             }

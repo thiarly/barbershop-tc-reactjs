@@ -13,7 +13,7 @@ class ListScheduleService{
             },
             select: {
                 id: true,
-                customerId: true,
+                customer: true,
                 haircut: true,
             }
         });

@@ -56,7 +56,7 @@ model Haircut{
 
 model Service{
   id String @id @default(uuid())
-  customerId String
+  customer String
   created_at DateTime? @default(now())
   updated_at DateTime? @default(now())
 
