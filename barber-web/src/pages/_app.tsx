@@ -17,7 +17,11 @@ const colors ={
   },
   orange:{
     900: '#fba931',
-  }
+  }, 
+  text:{
+    default: '#FFF',
+    gray: '#DFDFDF',
+  },
 }
 
 const theme = extendTheme({ colors })
