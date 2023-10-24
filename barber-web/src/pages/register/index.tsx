@@ -7,21 +7,22 @@ import { Flex, Text, Center, Input, Button } from '@chakra-ui/react'
 
 import Link from 'next/link'
 
-export default function Login(){
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
+export default function Register(){
 
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
 
-  function handleLogin(){
+  function handleRegister(){
+    console.log(name)
     console.log(email)
     console.log(password)
-  }  
-
+  }
 
   return(
     <>
       <Head>
-        <title>Barber TC - Página Login</title>
+        <title>Crie sua conta no Barber TC</title>
       </Head>
       <Flex background="barber.900" height="100vh" alignItems="center" justifyContent="center">
        
@@ -34,6 +35,18 @@ export default function Login(){
                 objectFit='fill' 
                 alt="Logo Barber TC" />
             </Center>
+
+            <Input
+            background={'barber.400'}
+            color={'text.default'}
+            variant={'filled'}
+            size={'lg'}
+            placeholder='Nome Barbearia'
+            type='text'
+            mb={3}
+            value={name}
+            onChange={ (e) => setName(e.target.value)}
+            />
 
             <Input
             background={'barber.400'}
@@ -65,14 +78,14 @@ export default function Login(){
             color="gray.900"
             size="lg"
             _hover={{ bg: '#ffb13e' }}
-            onClick={handleLogin}
+            onClick={handleRegister}
             >
-                Acessar
+                Cadastrar
             </Button>
 
             <Center mt={2}>
-                <Link href="/register">
-                    <Text color="text.default" cursor="pointer" >Ainda não tem uma conta? <strong>Cadastre-se</strong></Text>
+                <Link href="/login">
+                    <Text color="text.default" cursor="pointer" >Já possui uma conta? <strong>Faça Login</strong></Text>
                 </Link>
             </Center>
             
