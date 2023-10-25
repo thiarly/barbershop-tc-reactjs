@@ -1,6 +1,7 @@
 import type { AppProps } from 'next/app'
 import { ChakraProvider } from '@chakra-ui/react'
 import { extendTheme } from '@chakra-ui/react'
+import { mode } from "@chakra-ui/theme-tools";
 
 import { AuthProvider } from '../context/AuthContext'
 
@@ -26,7 +27,14 @@ const colors ={
   },
 }
 
-const theme = extendTheme({ colors })
+const theme = extendTheme({
+  colors,
+  styles: {
+    global: (props) => ({
+      color: mode("black", "white")(props),  // black para modo claro e white para modo escuro
+    }),
+  },
+});
 
 function MyApp({ Component, pageProps }: AppProps) {
   return ( 

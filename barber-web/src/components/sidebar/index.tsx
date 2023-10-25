@@ -47,7 +47,24 @@ export function Sidebar( { children }: { children: ReactNode }){
                 onClose={() => onClose}
                 display={{ base: 'none', md: 'block' }}
             />
-            <Box>
+
+            <Drawer
+                autoFocus={false}
+                isOpen={isOpen}
+                placement='left'
+                returnFocusOnClose={false}
+                onOverlayClick={onClose}
+                size={'full'}
+                onClose={onClose}
+                >
+                <DrawerContent>
+                   <SidebarContent onClose={() => onClose()} />
+                </DrawerContent>   
+            </Drawer>
+
+            <MobileNav display={{ base: 'flex', md: 'none' }} onOpen={onOpen} />
+
+            <Box ml={{ base: 0, md: 60 }} p={4}>
                 {children}
             </Box>
 
@@ -71,14 +88,15 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
         {...rest}
         >
             
-        <Flex h="20" alignItems="Center" mx="8" justifyContent="space-between"/>
+        <Flex h="20" alignItems="Center" mx="8" justifyContent="space-between">
             <Link href="/dashboard">
                 <Flex cursor="pointer" userSelect="none" flexDirection="row">
-                    <Text fontSize="30" fontFamily="monospace" marginLeft={6} marginBottom={8} fontWeight="bold" color="white">Barber</Text>
-                    <Text fontSize="30" fontFamily="monospace"  fontWeight="bold" marginBottom={8} color="button.cta" >TC</Text>
+                    <Text fontSize="30" fontFamily="monospace"  marginBottom={15} fontWeight="bold" color="white">Barber</Text>
+                    <Text fontSize="30" fontFamily="monospace"  fontWeight="bold" marginBottom={15} color="button.cta" >TC</Text>
                 </Flex>
             </Link>
-            <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
+            <CloseButton color={'white'} display={{ base: 'flex', md: 'none' }} onClick={onClose} />
+        </Flex>
 
             {LinkItems.map((link => (
                 <NavItem icon={link.icon} route={link.route} name={link.name} key={link.name}>
@@ -123,5 +141,41 @@ const NavItem = ({ icon, children, route, ...rest }: NavItemProps) => {
             {children}
         </Flex>
     </Link>
+    )
+}
+
+
+interface MobileProps extends FlexProps {
+    onOpen: () => void;
+}
+
+const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
+    return(
+        <Flex
+        ml={{ base: 0, md: 60 }}
+        px={{ base: 4, md: 24 }}
+        height="20"
+        alignItems="center"
+        bg={useColorModeValue('white', 'gray.900')}
+        borderBottomWidth="1px"
+        borderBottomColor={useColorModeValue('gray.200', 'gray.700')}
+        justifyContent="flex-start"
+        {...rest}
+        >
+        <IconButton
+            variant={'outline'}
+            onClick={onOpen}
+            aria-label='Open Menu'
+            icon={<FiMenu />}
+            />
+
+            <Flex>
+                <Center>
+                    <Text fontSize="30" fontFamily="monospace" marginLeft={6} marginBottom={1} fontWeight="bold" color="gray.900">Barber</Text>
+                    <Text fontSize="30" fontFamily="monospace"  fontWeight="bold" marginBottom={1} color="orange.900" >TC</Text>
+                </Center>
+            </Flex>
+
+        </Flex>
     )
 }

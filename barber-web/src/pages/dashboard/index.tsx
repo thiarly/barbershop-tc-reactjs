@@ -12,7 +12,7 @@ export default function Dashboard() {
             </Head>
             <Sidebar>
                 <Flex>
-                    <Text>Bem vindo ao Dashboard</Text>
+                    <Text color={"white"}>Bem vindo ao Dashboard</Text>
                 </Flex>
             </Sidebar>
         </>
