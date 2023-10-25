@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 
 import Head from 'next/head'
 import Image from 'next/image'
@@ -7,17 +7,25 @@ import { Flex, Text, Center, Input, Button } from '@chakra-ui/react'
 
 import Link from 'next/link'
 
+import { AuthContext } from '../../context/AuthContext'
+
 export default function Register(){
+  const { signUp } = useContext(AuthContext)
 
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
-  function handleRegister(){
-    console.log(name)
-    console.log(email)
-    console.log(password)
-  }
+  async function handleRegister(){
+    if(name === '' && email === '' && password === ''){
+      return;
+    }
+      await signUp({
+        name,
+        email,
+        password
+      })
+    }
 
   return(
     <>

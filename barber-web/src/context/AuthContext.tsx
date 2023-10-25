@@ -8,6 +8,8 @@ interface AuthContextData {
     user: UserProps | undefined; // Se futuramente tiver algum erro adicionei undefined e nao desativei o strictNullChecks
     isAuthenticated: boolean;
     signIn: (credentials: SignInProps) => Promise<void>;
+    signUp: (credentials: SignUpProps) => Promise<void>;
+    logoutUser: () => Promise<void>;
 }
 
 interface UserProps{
@@ -28,6 +30,12 @@ interface AuthProviderProps{
 }
 
 interface SignInProps{
+    email: string;
+    password: string;
+}
+
+interface SignUpProps{
+    name: string;
     email: string;
     password: string;
 }
@@ -80,8 +88,32 @@ export function AuthProvider({ children }: AuthProviderProps){
        }
     }
 
+    async function signUp({name, email, password}: SignUpProps){
+        try{
+            const response = await api.post("/users", {
+                name,
+                email,
+                password,
+            });
+            Router.push('/login');
+
+        }catch(err){
+            console.log("Falha ao tentar cadastrar o usuário:", err);
+        }
+    }
+
+    async function logoutUser(){
+        try{
+            destroyCookie(null, '@barber.token', { path: '/' });
+            Router.push('/login');
+            setUser(null)
+        }catch(err){
+            console.log("Falha ao tentar fazer logout:", err);
+        }
+    }
+
     return(
-        <AuthContext.Provider value={{ user, isAuthenticated, signIn }}>
+        <AuthContext.Provider value={{ user, isAuthenticated, signIn, signUp, logoutUser }}>
             {children}
         </AuthContext.Provider>
     )
