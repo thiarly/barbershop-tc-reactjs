@@ -1,6 +1,8 @@
 import { createContext, ReactNode, useState } from 'react';
-import { destroyCookie } from 'nookies';
+import { destroyCookie, setCookie } from 'nookies';
 import Router from 'next/router';
+
+import { api } from '../services/apiClient';
 
 interface AuthContextData {
     user: UserProps | undefined; // Se futuramente tiver algum erro adicionei undefined e nao desativei o strictNullChecks
@@ -33,12 +35,12 @@ interface SignInProps{
 export const AuthContext = createContext({} as AuthContextData);
 
 export function signOut(){
-    console.log('Erro Logout');
-    try{
+    try {
         destroyCookie(null, '@barber.token', { path: '/' });
         Router.push('/login');
-    }catch(err){
-        console.log('Erro ao fazer logout');
+    } catch(err) {
+        console.error('Falha ao destruir o cookie e redirecionar para login:', err.message);
+        alert('Ocorreu um erro ao fazer logout. Por favor, tente novamente.');
     }
 }
 
@@ -47,11 +49,36 @@ export function AuthProvider({ children }: AuthProviderProps){
     const isAuthenticated = !!user;
 
     async function signIn({ email, password }: SignInProps){
-        console.log('Vamos fazer login');
-        console.log({ email, password });
+       try {
+            const response = await api.post("/login", {
+                email,
+                password,
+            });
+            
+            const { id, name, token, subscription, endereco } = response.data;
+
+            setCookie(undefined, '@barber.token', token, {
+                maxAge: 60 * 60 * 24 * 30, // 1 hour
+                path: '/',
+            });
+
+            setUser({
+                id,
+                name,
+                email,
+                endereco,
+                subscription,
+            });
+
+            api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+
+            Router.push('/dashboard');
+
+       } catch(err) {
+            console.error("Falha ao tentar autenticar o usuário:", err.message);
+            alert('Erro ao tentar fazer login. Verifique suas credenciais e tente novamente.');
+       }
     }
-
-
 
     return(
         <AuthContext.Provider value={{ user, isAuthenticated, signIn }}>
