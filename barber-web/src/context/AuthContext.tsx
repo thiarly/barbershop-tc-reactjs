@@ -1,4 +1,6 @@
 import { createContext, ReactNode, useState } from 'react';
+import { destroyCookie } from 'nookies';
+import Router from 'next/router';
 
 interface AuthContextData {
     user: UserProps | undefined; // Se futuramente tiver algum erro adicionei undefined e nao desativei o strictNullChecks
@@ -29,6 +31,16 @@ interface SignInProps{
 }
 
 export const AuthContext = createContext({} as AuthContextData);
+
+export function signOut(){
+    console.log('Erro Logout');
+    try{
+        destroyCookie(null, '@barber.token', { path: '/' });
+        Router.push('/login');
+    }catch(err){
+        console.log('Erro ao fazer logout');
+    }
+}
 
 export function AuthProvider({ children }: AuthProviderProps){
     const [user, setUser] = useState<UserProps | undefined >();
