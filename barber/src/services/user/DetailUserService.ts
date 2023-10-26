@@ -11,6 +11,7 @@ class DetailUserService {
                 id: true,
                 name: true,
                 email: true,
+                endereco: true,
                 created_at: true,
                 updated_at: true,
                 subscriptions: {
