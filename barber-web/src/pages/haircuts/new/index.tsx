@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Head from "next/head";
 import { Sidebar } from "../../../components/sidebar";
 import {
@@ -12,6 +13,7 @@ import {
 } from '@chakra-ui/react'
 import Link from "next/link";
 import { FiChevronsLeft } from "react-icons/fi";
+import Router from "next/router";
 import { canSSRAuth } from "@/src/utils/canSSRAuth";
 import { setupAPIClient } from "@/src/services/api";
 import { api } from "@/src/services/apiClient";
@@ -24,19 +26,32 @@ interface NewHaircutProps{
 
 
 export default function NewHaircut( { subscription, count }){
-    function handleClick() {
-        if (!subscription && count >= 3) {
-            alert("Você atingiu o limite de cortes. Seja premium para continuar cadastrando.");
-        } else {
-            alert("Corte cadastrado com sucesso!");
-        }
-    }
-    
 
     console.log(subscription, count);
 
 
     const [isMobile] = useMediaQuery("(max-width: 550px)")
+
+    const[name, setName] = useState("");
+    const[price, setPrice] = useState("");
+
+    async function handleClick(){
+        if (name === "" || price === ""){
+            return;
+        }
+        try{
+            const apiClient = setupAPIClient();
+            await apiClient.post('/haircut', {
+                name: name,
+                price: Number(price)
+            })
+            alert("Corte cadastrado com sucesso!")
+            Router.push('/haircuts')
+        }catch(err){
+            console.log(err)
+            alert("Erro ao cadastrar corte")
+        }
+    }
 
     return(
         <>
@@ -88,6 +103,8 @@ export default function NewHaircut( { subscription, count }){
                             bg="gray.900"
                             mb={"4"}
                             disabled={!subscription && count >= 3}
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
                         />
                         <Input
                             placeholder="Valor do corte"
@@ -98,6 +115,8 @@ export default function NewHaircut( { subscription, count }){
                             bg="gray.900"
                             mb={"4"}
                             disabled={!subscription && count >= 3}
+                            value={price}
+                            onChange={(e) => setPrice(e.target.value)}
                         />   
                         <Button 
                             w={"85%"}
