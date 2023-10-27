@@ -20,7 +20,7 @@ import { IoMdPricetag } from 'react-icons/io'
 
 export default function Haircuts(){
 
-  const [isMobile] = useMediaQuery("(max-width: 500px)")
+  const [isMobile] = useMediaQuery("(max-width: 550px)")
 
   return(
     <>
@@ -48,7 +48,7 @@ export default function Haircuts(){
           </Heading>
 
           <Link href="/haircuts/new">
-            <Button>
+            <Button bg={"barber.100"}>
               Cadastrar novo
             </Button>
           </Link>
