@@ -91,8 +91,8 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
         <Flex h="20" alignItems="Center" mx="8" justifyContent="space-between">
             <Link href="/dashboard">
                 <Flex cursor="pointer" userSelect="none" flexDirection="row">
-                    <Text fontSize="30" fontFamily="monospace"  marginBottom={15} fontWeight="bold" color="white">Barber</Text>
-                    <Text fontSize="30" fontFamily="monospace"  fontWeight="bold" marginBottom={15} color="button.cta" >TC</Text>
+                    <Text fontSize="35" fontFamily="monospace"  marginBottom={15} fontWeight="bold" color="white">Barber</Text>
+                    <Text fontSize="35" fontFamily="monospace"  fontWeight="bold" marginBottom={15} color="button.cta" >TC</Text>
                 </Flex>
             </Link>
             <CloseButton color={'white'} display={{ base: 'flex', md: 'none' }} onClick={onClose} />
