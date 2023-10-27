@@ -1,106 +1,101 @@
-import Head  from "next/head";
-import{
-Flex,
-Text,
-Heading,
-Box,
-Center,
-Input,
-Button
+import Head from 'next/head';
+import { Sidebar } from '../../components/sidebar'
+import {
+  Flex,
+  Text,
+  Heading,
+  Button,
+  Stack,
+  Switch,
+  useMediaQuery,
+  Box
 } from '@chakra-ui/react'
-import { Sidebar } from "../../components/sidebar";
-import Link from "next/link";
 
-export default function Profile(){
-    return(
-        <>
-            <Head>
-                <title>Minha Conta - BarberPRO</title>
-            </Head>
-            <Sidebar>
-                <Flex direction={"column"} alignItems={"flex-start"} justifyContent={"flex-start"}>
-                    <Flex w="100%" direction={"row"} alignItems={"center"} justifyContent={"flex-start"}>
-                        <Heading color="red.600" fontSize={"4xl"}>Opções de Cortes</Heading>
-                    </Flex>
+import Link from 'next/link';
+
+import { IoMdPricetag } from 'react-icons/io'
+
+
+
+
+export default function Haircuts(){
+
+  const [isMobile] = useMediaQuery("(max-width: 500px)")
+
+  return(
+    <>
+      <Head>
+        <title>Modelos de corte - Minha barbearia</title>
+      </Head>
+      <Sidebar>
+        <Flex direction="column" alignItems="flex-start" justifyContent="flex-start">
+         
+         <Flex
+          direction={isMobile ? 'column' : 'row'}
+          w="100%"
+          alignItems={isMobile ? 'flex-start' : 'center'}
+          justifyContent="flex-start"
+          mb={0}
+         >
+          <Heading
+            fontSize={isMobile ? '28px' : "3xl"} 
+            mt={4} 
+            mb={4}
+            mr={4}
+            color="orange.900"
+          >
+            Modelos de corte
+          </Heading>
+
+          <Link href="/haircuts/new">
+            <Button>
+              Cadastrar novo
+            </Button>
+          </Link>
+
+          <Stack ml="auto" align="center" direction="row">
+            <Text fontWeight="bold">ATIVOS</Text>
+            <Switch
+              colorScheme="green"
+              size="lg"
+            />
+          </Stack>
+
+         </Flex>
+
+
+         <Box w="100%">
+            <Link href="/haircuts/123">
+                <Flex
+                cursor="pointer"
+                w="100%"
+                p={4}
+                bg="barber.400"
+                direction="row"
+                rounded="4"
+                mb={2}
+                justifyContent="space-between"
+                >
+
+                <Flex direction="row" alignItems="center">
+                    <IoMdPricetag size={28} color="#fba931"/>
+                    <Text fontWeight="bold" ml={4} noOfLines={2} color="white">
+                    Corte completo
+                    </Text>
                 </Flex>
 
-                <Flex pt={8} pb={8} background={"barber.400"} maxW={"700px"} w="100%" direction={"column"} alignItems={"center"} justifyContent={"center"}>
-                    <Flex direction={"column"} w={"85%"}>
-                        <Text color={"white"} fontSize={"xl"} fontWeight={"bold"} mb={"2"}>
-                            Nome da Barbearia</Text>
-                        <Input
-                            w={"100%"}
-                            background={"gray.900"}
-                            placeholder="Nome da sua Barbearia"
-                            size={"lg"}
-                            type="text"
-                            mb={"6"}
-                        />
-                        <Text color={"white"} fontSize={"xl"} fontWeight={"bold"} mb={"2"}>
-                            Endereço</Text>
-                        <Input
-                            w={"100%"}
-                            background={"gray.900"}
-                            placeholder="Endereço da Barbearia"
-                            size={"lg"}
-                            type="text"
-                            mb={"6"}
-                        />
-                        <Text color={"white"} fontSize={"xl"} fontWeight={"bold"} mb={"2"}>
-                            Plano Atual:
-                        </Text>
+                <Text fontWeight="bold" color="white" alignSelf="center">
+                    Preço: R$ 59.90
+                </Text>
 
-                        <Flex
-                            direction={"row"} 
-                            w={"100%"} mb={"1"} 
-                            rounded={"6"} 
-                            background={"barber.900"} 
-                            alignItems={"center"} 
-                            justifyContent={"space-between"}
-                            >
-                            <Text color={"#4dffb4"} p={"2"} fontSize={"lg"}>Plano Grátis</Text>
-                            
-                            <Link href="/planos">
-                                <Box 
-                                color={"white"} 
-                                cursor={"pointer"} 
-                                p={"1"} 
-                                pl={"2"} 
-                                pr={"2"} 
-                                background={"#00cd52"} 
-                                rounded={4}>
-                                    Mudar Plano
-                                </Box>
-                            </Link>
-                        </Flex>
-                        
-                        <Button
-                            w={"100%"}
-                            mt={"3"}
-                            mb={"4"}
-                            bg={"button.cta"}
-                            size={"lg"}
-                            _hover={{ bg: '#ffb13e' }}
-                        >
-                            Salvar
-                        </Button>
-
-                        <Button
-                            w={"100%"}
-                            mb={"6"}
-                            bg={"transparent"}
-                            borderColor={"red.500"}
-                            color={"red.500"}
-                            borderWidth={2}
-                            size={"lg"}
-                            _hover={{ bg: 'transparent' }}
-
-                        >
-                            Sair da conta
-                        </Button>
-                    </Flex>
                 </Flex>
-            </Sidebar>
-        </>
-    )
+            </Link>
+        </Box>          
+
+
+
+        </Flex>
+      </Sidebar>
+    </>
+  )
 }
