@@ -12,9 +12,30 @@ import {
 } from '@chakra-ui/react'
 import Link from "next/link";
 import { FiChevronsLeft } from "react-icons/fi";
+import { canSSRAuth } from "@/src/utils/canSSRAuth";
+import { setupAPIClient } from "@/src/services/api";
+import { api } from "@/src/services/apiClient";
+
+interface NewHaircutProps{
+    subscription: boolean;
+    count: number;
+}
 
 
-export default function NewHaircut(){
+
+export default function NewHaircut( { subscription, count }){
+    function handleClick() {
+        if (!subscription && count >= 3) {
+            alert("Você atingiu o limite de cortes. Seja premium para continuar cadastrando.");
+        } else {
+            alert("Corte cadastrado com sucesso!");
+        }
+    }
+    
+
+    console.log(subscription, count);
+
+
     const [isMobile] = useMediaQuery("(max-width: 550px)")
 
     return(
@@ -57,6 +78,7 @@ export default function NewHaircut(){
                     
                     >
                         <Heading mb={4} color="white" fontSize={isMobile ? "22px" : "3xl"}> Cadastrar modelo</Heading>
+                        // Correção na propriedade disabled
                         <Input
                             placeholder="Nome do corte"
                             size={"lg"}
@@ -65,8 +87,8 @@ export default function NewHaircut(){
                             w={"85%"}
                             bg="gray.900"
                             mb={"4"}
-                        >
-                        </Input>
+                            disabled={!subscription && count >= 3}
+                        />
                         <Input
                             placeholder="Valor do corte"
                             size={"lg"}
@@ -75,18 +97,35 @@ export default function NewHaircut(){
                             w={"85%"}
                             bg="gray.900"
                             mb={"4"}
-                        >   
-                        </Input>
+                            disabled={!subscription && count >= 3}
+                        />   
                         <Button 
-                        w={"85%"}
-                        size={"lg"}
-                        bg={"button.cta"}
-                        color={"gray.900"}
-                        mb={"6"}
-                        _hover={{ bg: '#ffb13e' }}
+                            w={"85%"}
+                            size={"lg"}
+                            bg={"button.cta"}
+                            color={"white"}
+                            mb={"6"}
+                            _hover={{ bg: '#ffb13e' }}
+                            disabled={!subscription && count >= 3} // Ajustado aqui
+                            onClick={handleClick}
+                            
                         >
                             Cadastrar
                         </Button>
+
+                        {! subscription && count >= 3 && (
+                            <Flex>
+                                <Text color={"white"} mr={"1"}>
+                                    Você atingiu o limite cortes.
+                                </Text>
+                                <Link href={"/planos"}>
+                                    <Text fontWeight={"bold"} color={"#31FB6A"} cursor={"pointer"}>
+                                        Seja premium
+                                    </Text>
+
+                                </Link>
+                            </Flex>    
+                        )}
                     </Flex>
                 </Flex>
             </Sidebar>
@@ -94,3 +133,32 @@ export default function NewHaircut(){
     )
         
 }
+
+
+export const getServerSideProps = canSSRAuth(async (ctx) => {
+    try {
+        const apiClient = setupAPIClient(ctx);
+
+        const response = await apiClient.get('/haircut/check');
+        console.log(response.data); // Adicionando o console.log aqui
+
+        const count = await apiClient.get('/haircut/count');
+
+        return {
+            props: {
+                subscription: response.data?.subscriptions?.status === 'active' ? true : false,
+                count: count.data
+            }
+        }
+
+    } catch (err) {
+        console.log(err);
+
+        return {
+            redirect: {
+                destination: '/dashboard',
+                permanent: false
+            }
+        }
+    }
+})
