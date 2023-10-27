@@ -29,7 +29,7 @@ interface ProfileProps{
 
 export default function Profile({ user, premium }: ProfileProps){
     console.log(user)
-    
+
     const { logoutUser } = useContext(AuthContext);
 
     const [name, setName] = useState(user && user?.name)
@@ -38,6 +38,24 @@ export default function Profile({ user, premium }: ProfileProps){
 
     async function handleLogout(){
         await logoutUser();
+    }
+
+    async function handleUpdateUser(){
+        if (name === ""){
+            return;
+        }
+        try{
+            const apiCliente = setupAPIClient();
+            await apiCliente.put('/users', {
+                name: name,
+                endereco: endereco
+            })
+            alert("Dados atualizados com sucesso!")
+
+        }catch(err){
+            console.log(err)
+        }
+
     }
     
     return(
@@ -117,6 +135,7 @@ export default function Profile({ user, premium }: ProfileProps){
                             bg={"button.cta"}
                             size={"lg"}
                             _hover={{ bg: '#ffb13e' }}
+                            onClick={handleUpdateUser}
                         >
                             Salvar
                         </Button>
