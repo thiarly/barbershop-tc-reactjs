@@ -10,6 +10,8 @@
         "corte",
         "Corte",
         "Degradê",
+        "Desativar",
+        "Editar",
         "endereco",
         "Endereço",
         "Minha",
@@ -20,6 +22,7 @@
         "Preço",
         "Pricetag",
         "Sair",
-        "Salvar"
+        "Salvar",
+        "Voltar"
     ]
 }
