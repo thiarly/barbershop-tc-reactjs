@@ -8,6 +8,7 @@ import {
     Link as ChakraLink,
     useMediaQuery,
     Box,
+    useDisclosure,
 } from "@chakra-ui/react";
 
 import { canSSRAuth } from "@/src/utils/canSSRAuth";
@@ -15,6 +16,7 @@ import { Sidebar } from "@/src/components/sidebar";
 import Link from "next/link";
 import { IoMdPerson } from "react-icons/io";
 import { setupAPIClient } from '../../services/api'
+import { ModalInfo } from "@/src/components/modal";
 
 
 export interface ScheduleItem {
@@ -33,8 +35,16 @@ interface DashboardProps {
 
 export default function Dashboard({ schedule }: DashboardProps) {
     const [list, setList] = useState(schedule)
+    const [service, setService] = useState<ScheduleItem>()
+
+    const { isOpen, onOpen, onClose } = useDisclosure()
 
     const [isMobile] = useMediaQuery("(max-width: 550px)")
+
+    function handleOpenModal(item: ScheduleItem){
+        setService(item)
+        onOpen()
+    }
 
     return(
         <>
@@ -57,7 +67,8 @@ export default function Dashboard({ schedule }: DashboardProps) {
                    
                     {list.map((item) => (
                         <Box w="100%">
-                        <ChakraLink
+                        <ChakraLink 
+                            onClick={ () => handleOpenModal(item) }
                             key={item?.id}
                             w="100%"
                             m={0}
@@ -100,6 +111,14 @@ export default function Dashboard({ schedule }: DashboardProps) {
 
                 </Flex>
             </Sidebar>
+            <ModalInfo
+                isOpen={isOpen}
+                onClose={onClose}
+                onOpen={onOpen}
+                data={service}
+                finishService={async () => {}}
+            />
+            
         </>
     )
 }
