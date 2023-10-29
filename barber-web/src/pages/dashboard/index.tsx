@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Head from "next/head";
 import {
     Flex, 
@@ -13,9 +14,25 @@ import { canSSRAuth } from "@/src/utils/canSSRAuth";
 import { Sidebar } from "@/src/components/sidebar";
 import Link from "next/link";
 import { IoMdPerson } from "react-icons/io";
+import { setupAPIClient } from '../../services/api'
 
 
-export default function Dashboard() {
+export interface ScheduleItem {
+    id: string;
+    customer: string;
+    haircut: {
+        id: string;
+        name: string;
+        price: number;
+        user_id: string;
+    }
+}
+interface DashboardProps {
+    schedule: ScheduleItem[];
+}
+
+export default function Dashboard({ schedule }: DashboardProps) {
+    const [list, setList] = useState(schedule)
 
     const [isMobile] = useMediaQuery("(max-width: 550px)")
 
@@ -36,36 +53,50 @@ export default function Dashboard() {
                             </Button>
                         </Link>
                     </Flex>
-                    <Box w="100%">
-                    <ChakraLink
-                        w="100%"
-                        m={0}
-                        p={0}
-                        mt={0}
-                        bg="transparent"
-                        style={{ textDecoration: "none" }}
-                    >
-                        <Flex 
-                        w="100%" 
-                        direction={isMobile ? "column" : "row"}
-                        p={4}
-                        rounded={4}
-                        mb={4}
-                        bg="barber.400"
-                        justify={"space-between"}
-                        align={isMobile ? "flex-start" : "center"}
+
+                   
+                    {list.map((item) => (
+                        <Box w="100%">
+                        <ChakraLink
+                            key={item?.id}
+                            w="100%"
+                            m={0}
+                            p={0}
+                            mt={1}
+                            bg="transparent"
+                            style={{ textDecoration: "none" }}
                         >
-                            <Flex direction={"row"} mb={isMobile ? 2 : 0} align={"center"} justify={"center"}>
-                                <IoMdPerson size={28} color="orange"/>
-                                <Text color={"white"} fontWeight={"bold"}  noOfLines={6}>Thiarly Cavalcante</Text>
+                            <Flex 
+                            w="100%" 
+                            direction={isMobile ? "column" : "row"}
+                            p={4}
+                            rounded={4}
+                            mb={4}
+                            bg="barber.400"
+                            justify={"space-between"}
+                            align={isMobile ? "flex-start" : "center"}
+                            >
+                                <Flex direction={"row"} mb={isMobile ? 2 : 0} align={"start"} justify={"start"} flexShrink={0}>
+                                    <IoMdPerson size={28} color="orange"/>
+                                    <Text color={"white"} fontWeight={"bold"} noOfLines={1}>
+                                        {item?.customer}
+                                    </Text>
+                                </Flex>
+
+                                <Flex direction={"column"} align={"center"} justify={"center"} flexShrink={0}>
+                                    <Text color={"white"} fontWeight={"bold"} mb={isMobile ? 2 : 0}>
+                                        {item?.haircut?.name}
+                                    </Text>
+                                </Flex>
+                                <Flex direction={"column"} align={"center"} justify={"center"} flexShrink={0}>
+                                    <Text color={"white"} fontWeight={"bold"}>
+                                        R$ {item?.haircut?.price}
+                                    </Text>
+                                </Flex>
                             </Flex>
-
-                            <Text color={"white"} fontWeight={"bold"} mb={isMobile ? 2 : 0}>Corte completo</Text>
-                            <Text color={"white"} fontWeight={"bold"} mb={isMobile ? 2 : 0}>R$ 40.50</Text>
-
-                        </Flex>
-                    </ChakraLink>
-                    </Box>
+                        </ChakraLink>
+                        </Box>
+                    ))}
 
                 </Flex>
             </Sidebar>
@@ -75,10 +106,25 @@ export default function Dashboard() {
 
 
 export const getServerSideProps = canSSRAuth(async (ctx) => {
-    return {
-        props: {
 
+    try{
+        const apiClient = setupAPIClient(ctx)
+        const response = await apiClient.get('/schedule')
+
+        return {
+            props: {
+                schedule: response.data,
+            }
+        }
+
+    }catch(err){
+        console.log(err)
+        return {
+            props: {
+                schedule: []
+            }
         }
     }
+
 })
 

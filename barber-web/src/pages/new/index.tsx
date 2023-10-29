@@ -47,13 +47,19 @@ export default function New( {haircuts}: NewProps ) {
     }
 
     async function handleRegister(){
+
+        if (customer === ""){
+            alert("Preencha o nome do cliente")
+            return;
+        }
+
         try{
             const apiClient = setupAPIClient();
             await apiClient.post('/schedule', {
                 customer,
                 haircut_id: haircutSelected?.id,
             })
-
+            alert("Agendamento cadastrado com sucesso!")
             router.push('/dashboard')
 
 
