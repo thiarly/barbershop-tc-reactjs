@@ -16,10 +16,52 @@ import {
 
 import Link from 'next/link';
 
+import { canSSRAuth } from '@/src/utils/canSSRAuth';
+import { setupAPIClient } from '@/src/services/api';
+import { useRouter } from 'next/router';
 
-export default function New() {
+interface HaircutProps{
+    id: string;
+    name: string;
+    price: string | number;
+    status: boolean;
+    user_id: string;
+}
+
+
+interface NewProps{
+    haircuts: HaircutProps[];
+}
+
+ 
+export default function New( {haircuts}: NewProps ) {
 
     const [customer , setCustomer] = useState('')
+    const [haircutSelected, setHaircutSelected] = useState(haircuts[0])
+    const router = useRouter()
+
+    function handleChangeSelect(id: string){
+        const haircutItem = haircuts.find( item => item.id === id)
+        setHaircutSelected(haircutItem)
+
+    }
+
+    async function handleRegister(){
+        try{
+            const apiClient = setupAPIClient();
+            await apiClient.post('/schedule', {
+                customer,
+                haircut_id: haircutSelected?.id,
+            })
+
+            router.push('/dashboard')
+
+
+        }catch(err){
+            console.log(err)
+            alert("Erro ao cadastrar agendamento")
+        }
+    }
 
     return (
         <>
@@ -59,9 +101,12 @@ export default function New() {
                     
                     </Input>
 
-                    <Select bg={"barber.900"} mb={3} size={"lg"} w={"85%"} color={"gray.100"}>
-                        <option key={1} value="Barber Completa" color='gray.100'>Corte Completo</option>
+                    <Select aria-label="Tipo de Serviço" bg={"barber.900"} mb={3} size={"lg"} w={"85%"} color={"gray.100"} onChange={(e) => handleChangeSelect(e.target.value)}>
+                        {haircuts.map( item => (
+                                 <option key={item?.id} value={item?.id} color='gray.100'>{item?.name}</option>
+                           ))}
                     </Select>
+
 
                     <Button
                         placeholder="Nome do Cliente"
@@ -70,8 +115,9 @@ export default function New() {
                         bg="button.cta"
                         color="gray.900"
                         _hover={{ bg: '#ffb13e' }}
+                        onClick={handleRegister}
                     >
-                        Agendar
+                        Cadastrar
                     </Button>
 
                 </Flex>
@@ -79,3 +125,45 @@ export default function New() {
         </>
     );
 } 
+
+export const getServerSideProps = canSSRAuth(async (ctx) => {
+    try {
+        const apiClient = setupAPIClient(ctx);
+        const response = await apiClient.get('/haircuts', {
+            params: {
+                status: true,
+            }
+        });
+
+        if (response.data === null) {
+                return {
+                    redirect: {
+                        destination: '/dashboard',
+                        permanent: false
+                  }
+             }
+        }
+
+        // Presumindo que você queira retornar os dados como props
+        return {
+            props: {
+                haircuts: response.data
+            }
+        };
+
+        return {
+            props: {
+                haircuts: response.data
+            }
+        };
+
+    } catch (err) {
+        console.log(err);
+        return {
+            redirect: {
+                destination: '/dashboard',
+                permanent: false
+            }
+        };
+    }
+});
