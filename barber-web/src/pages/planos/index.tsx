@@ -9,9 +9,15 @@ import {
 } from '@chakra-ui/react';
 
 import { Sidebar } from "../../components/sidebar";
-import { color } from 'framer-motion';
+import { canSSRAuth } from '@/src/utils/canSSRAuth';
+import { setupAPIClient } from '@/src/services/api';
 
-export default function Planos() {
+interface PlanosProps{
+    premium: boolean;
+}
+
+
+export default function Planos({ premium }: PlanosProps) {
     const [isMobile] = useMediaQuery("(max-width: 550px)")
 
     return(
@@ -30,11 +36,11 @@ export default function Planos() {
                         <Flex w={"100%"} gap={4} flexDirection={isMobile ? "column" : "row"}>
                             <Flex rounded={4} p={4} flex={1} background={"barber.400"} flexDirection={"column"}>
                                 <Heading
-                                 color={"white"}
                                  textAlign={'center'}
                                     fontSize={"2xl"}
                                     mt={2} mb={2}
-                                    color="gray.100"
+                                    color={"white"}
+                                    
                                 >
                                     Planos Grátis
                                 </Heading>
@@ -49,7 +55,6 @@ export default function Planos() {
                   
                             <Flex rounded={4} p={4} flex={1} background={"barber.400"} flexDirection={"column"}>
                                 <Heading
-                                 color={"white"}
                                  textAlign={'center'}
                                     fontSize={"2xl"}
                                     mt={2} mb={2}
@@ -67,15 +72,33 @@ export default function Planos() {
                                 <Text color={"#31fb6a"} fontSize={"lg"} fontWeight="bold" ml={4} mb={4}>R$ 9.99</Text>
 
                                 <Button
-                                    bg={"button.cta"}
-                                    color={"#FFF"}
-                                    mr={3}
+                                    bg={premium ? "gray.700" : "button.cta"}
+                                    color={premium ? "#31fb6a" : "#FFF"}
+                                    m={2}
                                     onClick={() => {}}
                                     _hover={{bg: "#31fb6a", color: "gray.900"}}
+                                    disabled={premium}
                                     
                                 >
-                                    Assinar
+                                    { premium ? (
+                                        "VOCÊ JÁ É PREMIUM"
+                                    ) :(
+                                        "ASSINAR AGORA"
+                                    ) }
+
                                 </Button>
+
+                                { premium && (
+                                    <Button
+                                        m={2}
+                                        bg={"white"}
+                                        color="barber.900"
+                                        fontWeight={"bold"}
+                                        onClick={() => {}}
+                                    >
+                                        ALTERAR PLANO
+                                    </Button>
+                                )}
                             </Flex>
 
 
@@ -84,7 +107,30 @@ export default function Planos() {
                     </Flex>
                 </Sidebar>
         </>
-    )
-
-    
+    )   
 }
+
+export const getServerSideProps = canSSRAuth(async (ctx) => {
+    try{
+
+        const apiClient = setupAPIClient(ctx);
+        const response = await apiClient.get('/me');
+
+        return {
+            props: {
+                premium: response.data?.subscriptions?.status === "active" ? true : false,
+            }
+        }
+
+    }catch(err){
+        console.log(err);
+
+        return {
+            redirect: {
+                destination: '/dashboard',
+                permanent: false,
+
+            }
+        }
+    } 
+})
