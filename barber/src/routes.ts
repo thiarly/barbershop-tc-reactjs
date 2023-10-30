@@ -18,6 +18,10 @@ import { FinishScheduleController } from './controllers/schedule/FinishScheduleC
 
 import { isAuthenticated } from './middlewares/isAuthenticated';
 
+import { SubscribeController } from './controllers/subscription/SubscribeController';
+
+
+
 const router = Router();
 
 // router.get('/teste', (req: Request, res: Response) => {
@@ -44,6 +48,9 @@ router.get('/haircut/detail', isAuthenticated, new DetailHaircutController().han
 router.post('/schedule', isAuthenticated, new NewScheduleController().handle);
 router.get('/schedule', isAuthenticated, new ListScheduleController().handle);
 router.delete('/schedule', isAuthenticated, new FinishScheduleController().handle);
+
+// --- ROTAS DE PAGAMENTOS ---
+router.post('/subscribe', isAuthenticated, new SubscribeController().handle);
 
 
 export { router };
