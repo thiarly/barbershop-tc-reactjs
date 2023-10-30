@@ -140,6 +140,13 @@
   dependencies:
     undici-types "~5.25.1"
 
+"@types/node@>=8.1.0":
+  version "20.8.9"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.8.9.tgz#646390b4fab269abce59c308fc286dcd818a2b08"
+  integrity sha512-UzykFsT3FhHb1h7yD4CA4YhBHq545JC0YnEz41xkipN88eKQtL6rSgocL5tbAP6Ola9Izm/Aw4Ora8He4x0BHg==
+  dependencies:
+    undici-types "~5.26.4"
+
 "@types/qs@*":
   version "6.9.9"
   resolved "https://registry.npmjs.org/@types/qs/-/qs-6.9.9.tgz"
@@ -813,6 +820,13 @@ qs@6.11.0:
   dependencies:
     side-channel "^1.0.4"
 
+qs@^6.11.0:
+  version "6.11.2"
+  resolved "https://registry.yarnpkg.com/qs/-/qs-6.11.2.tgz#64bea51f12c1f5da1bc01496f48ffcff7c69d7d9"
+  integrity sha512-tDNIz22aBzCDxLtVH++VnTfzxlfeK5CbqohpSqpJgj1Wg/cQbStNAz3NuqCs5vV+pjBsK4x4pN9HlVh7rcYRiA==
+  dependencies:
+    side-channel "^1.0.4"
+
 range-parser@~1.2.1:
   version "1.2.1"
   resolved "https://registry.npmjs.org/range-parser/-/range-parser-1.2.1.tgz"
@@ -944,6 +958,14 @@ strip@^3.0.0:
   resolved "https://registry.yarnpkg.com/strip/-/strip-3.0.0.tgz#750fc933152a7d35af0b7420e651789b914cc35e"
   integrity sha512-kIPiqRSsGCwWItPLDhuZPQlwX16WjQggT5QS1f5Aam0DSbtPQh8SsIkbBxLm+835qb1Q0OoQnvrhJ0oplIup8Q==
 
+stripe@^14.2.0:
+  version "14.2.0"
+  resolved "https://registry.yarnpkg.com/stripe/-/stripe-14.2.0.tgz#e7a143d01ecd62ea5e5861f547d5ad74d7f92143"
+  integrity sha512-lMjDOyJbt+NVSDvkTathSP7uEV35l7oU8UrhBJrYD8lUi43BWujq8E9QHd3o9D2KPBR1Cze5DCw5s1btnLfdMA==
+  dependencies:
+    "@types/node" ">=8.1.0"
+    qs "^6.11.0"
+
 supports-preserve-symlinks-flag@^1.0.0:
   version "1.0.0"
   resolved "https://registry.npmjs.org/supports-preserve-symlinks-flag/-/supports-preserve-symlinks-flag-1.0.0.tgz"
@@ -1028,6 +1050,11 @@ undici-types@~5.25.1:
   version "5.25.3"
   resolved "https://registry.npmjs.org/undici-types/-/undici-types-5.25.3.tgz"
   integrity sha512-Ga1jfYwRn7+cP9v8auvEXN1rX3sWqlayd4HP7OKk4mZWylEmu3KzXDUGrQUN6Ol7qo1gPvB2e5gX6udnyEPgdA==
+
+undici-types@~5.26.4:
+  version "5.26.5"
+  resolved "https://registry.yarnpkg.com/undici-types/-/undici-types-5.26.5.tgz#bcd539893d00b56e964fd2657a4866b221a65617"
+  integrity sha512-JlCMO+ehdEIKqlFxk6IfVoAUVmgz7cU7zD/h9XZ0qzeosSHmUJVOzSQvvYSYWXkFXC+IfLKSIffhv0sVZup6pA==
 
 unpipe@1.0.0, unpipe@~1.0.0:
   version "1.0.0"
