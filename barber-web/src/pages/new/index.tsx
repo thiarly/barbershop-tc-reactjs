@@ -1,21 +1,16 @@
-import { useState, ChangeEvent } from 'react';
 import Head from 'next/head';
+import { useState, ChangeEvent } from 'react';
 import { Sidebar } from '../../components/sidebar'
 import {
   Flex,
-  Text,
   Heading,
   Button,
-  Stack,
-  Switch,
-  useMediaQuery,
-  Box,
   Input,
   Select,
+  Box,
+  Text,
 } from '@chakra-ui/react'
-
-import Link from 'next/link';
-
+   
 import { canSSRAuth } from '@/src/utils/canSSRAuth';
 import { setupAPIClient } from '@/src/services/api';
 import { useRouter } from 'next/router';
@@ -27,7 +22,6 @@ interface HaircutProps{
     status: boolean;
     user_id: string;
 }
-
 
 interface NewProps{
     haircuts: HaircutProps[];
@@ -76,10 +70,11 @@ export default function New( {haircuts}: NewProps ) {
             </Head>
             <Sidebar>
                 <Flex
-                    direction={'row'}
+                    
                     w={'100%'}
-                    align={'center'}
+                    
                     justify={'center'}
+                    direction="column" alignItems="flex-start" justifyContent="flex-start"
                 >
                     <Heading fontSize={"3xl"} mt={4} mb={4} mr={4} color={"white"}>
                         Novo Agendamento
@@ -100,19 +95,26 @@ export default function New( {haircuts}: NewProps ) {
                         width={'85%'}
                         bg="barber.900"
                         color="gray.100"
-                        mb={3}
+                        mb={5}
                         value={customer}
                         onChange={(e: ChangeEvent<HTMLInputElement>) => setCustomer(e.target.value)}
                     >
-                    
                     </Input>
-
-                    <Select aria-label="Tipo de Serviço" bg={"barber.900"} mb={3} size={"lg"} w={"85%"} color={"gray.100"} onChange={(e) => handleChangeSelect(e.target.value)}>
-                        {haircuts.map( item => (
-                                 <option key={item?.id} value={item?.id} color='gray.100'>{item?.name}</option>
-                           ))}
+                
+                    <Text color={'white'} mb={2}>Tipo de Serviço</Text>
+                    <Select
+                        id="haircutSelect"
+                        bg={"barber.900"} 
+                        mb={3}
+                        size={"lg"}
+                        w={"85%"} 
+                        color={"gray.100"} 
+                        onChange={(e) => handleChangeSelect(e.target.value)}
+                    >
+                        {haircuts.map(item => (
+                            <option key={item?.id} value={item?.id} color='gray.100'>{item?.name}</option>
+                        ))}
                     </Select>
-
 
                     <Button
                         placeholder="Nome do Cliente"
@@ -151,12 +153,6 @@ export const getServerSideProps = canSSRAuth(async (ctx) => {
         }
 
         // Presumindo que você queira retornar os dados como props
-        return {
-            props: {
-                haircuts: response.data
-            }
-        };
-
         return {
             props: {
                 haircuts: response.data

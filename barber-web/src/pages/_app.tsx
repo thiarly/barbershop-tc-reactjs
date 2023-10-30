@@ -5,6 +5,17 @@ import { mode } from "@chakra-ui/theme-tools";
 
 import { AuthProvider } from '../context/AuthContext'
 
+const styles ={
+  global:{
+    body:{
+      color: 'gray.100',
+    },
+    a:{
+      color: 'text.default',
+    },
+  }
+}
+
 
 const colors ={
   barber:{
@@ -27,14 +38,7 @@ const colors ={
   },
 }
 
-const theme = extendTheme({
-  colors,
-  styles: {
-    global: (props) => ({
-      color: mode("black", "white")(props),  // black para modo claro e white para modo escuro
-    }),
-  },
-});
+const theme = extendTheme({ styles, colors })
 
 function MyApp({ Component, pageProps }: AppProps) {
   return ( 

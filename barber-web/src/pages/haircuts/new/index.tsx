@@ -93,7 +93,6 @@ export default function NewHaircut( { subscription, count }){
                     
                     >
                         <Heading mb={4} color="white" fontSize={isMobile ? "22px" : "3xl"}> Cadastrar modelo</Heading>
-                        // Correção na propriedade disabled
                         <Input
                             placeholder="Nome do corte"
                             size={"lg"}
@@ -107,7 +106,7 @@ export default function NewHaircut( { subscription, count }){
                             onChange={(e) => setName(e.target.value)}
                         />
                         <Input
-                            placeholder="Valor do corte"
+                            placeholder="Valor do corte R$ 39.90"
                             size={"lg"}
                             type="text"
                             color={"gray.100"}
