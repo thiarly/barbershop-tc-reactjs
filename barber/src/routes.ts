@@ -1,4 +1,4 @@
-import { Router, Request, Response } from 'express';
+import express, { Router, Request, Response } from 'express';
 
 import { CreateUserController } from './controllers/user/CreateUserController';
 import { AuthUserController } from './controllers/user/AuthUserController';
@@ -16,11 +16,10 @@ import { NewScheduleController } from './controllers/schedule/NewScheduleControl
 import { ListScheduleController } from './controllers/schedule/ListScheduleController';
 import { FinishScheduleController } from './controllers/schedule/FinishScheduleController';
 
-import { isAuthenticated } from './middlewares/isAuthenticated';
-
 import { SubscribeController } from './controllers/subscription/SubscribeController';
+import { WebhooksController } from './controllers/subscription/WebhooksController';
 
-
+import { isAuthenticated } from './middlewares/isAuthenticated';
 
 const router = Router();
 
@@ -51,6 +50,7 @@ router.delete('/schedule', isAuthenticated, new FinishScheduleController().handl
 
 // --- ROTAS DE PAGAMENTOS ---
 router.post('/subscribe', isAuthenticated, new SubscribeController().handle);
-
+// Rota de webhooks com middleware para tratar o corpo da requisição
+router.post('/webhooks', express.raw({type: 'application/json'}), new WebhooksController().handle);
 
 export { router };

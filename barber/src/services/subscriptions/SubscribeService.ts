@@ -11,7 +11,7 @@ class SubscribeService {
         const stripe = new Stripe(
             process.env.STRIPE_API_KEY,
             {
-                apiVersion: '2022-08-01',
+                apiVersion: '2023-10-16',
                 appInfo:{
                     name: 'BarberTC',
                     version: '14.2.0'
