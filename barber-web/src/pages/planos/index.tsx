@@ -11,7 +11,7 @@ import {
 import { Sidebar } from "../../components/sidebar";
 import { canSSRAuth } from '@/src/utils/canSSRAuth';
 import { setupAPIClient } from '@/src/services/api';
-import { getStripeJs } from '@/src/services/stripe.js';
+import { getStripeJs } from '@/src/services/stripe-js';
 
 interface PlanosProps{
     premium: boolean;

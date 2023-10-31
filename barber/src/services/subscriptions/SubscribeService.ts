@@ -9,12 +9,12 @@ interface SubscribeRequest {
 class SubscribeService {
     async execute( {user_id}: SubscribeRequest) {
         const stripe = new Stripe(
-            process.env.STRIPE_SECRET_KEY!,
+            process.env.STRIPE_API_KEY,
             {
                 apiVersion: '2022-08-01',
                 appInfo:{
                     name: 'BarberTC',
-                    version: '0.1.0'
+                    version: '14.2.0'
                 }
             }
         )
@@ -24,11 +24,11 @@ class SubscribeService {
                 id: user_id
             }
         })
-        let customerId = findUser?.stripe_customer_id;
+        let customerId = findUser.stripe_customer_id;
 
         if(!customerId){
             const stripeCustomer = await stripe.customers.create({
-                email: findUser?.email
+                email: findUser.email
             })
             await prismaClient.user.update({
                 where:{
