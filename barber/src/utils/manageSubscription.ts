@@ -1,5 +1,5 @@
 import { stripe } from "./stripe";
-import prismaClient from "../prisma";
+import prismaClient from "../prisma/index";
 
 export async function saveSubscription(
     subscriptionId: string,
@@ -22,7 +22,7 @@ export async function saveSubscription(
         id: subscription.id,
         userId: findUser.id,
         status: subscription.status,
-        priceId: subscription.items.data[0].price.id
+        priceId: subscription.items.data[0].price.id,
     }
 
     if (createAction) {
@@ -53,8 +53,8 @@ export async function saveSubscription(
                     id: subscriptionId,
                 },
                 data: {
-                    status: subscriptionData.status,
-                    priceId: subscriptionData.priceId
+                    status: subscription.status,
+                    priceId: subscription.items.data[0].price.id,
                 }
             });
         } catch (err) {

@@ -51,6 +51,6 @@ router.delete('/schedule', isAuthenticated, new FinishScheduleController().handl
 // --- ROTAS DE PAGAMENTOS ---
 router.post('/subscribe', isAuthenticated, new SubscribeController().handle);
 // Rota de webhooks com middleware para tratar o corpo da requisição
-router.post('/webhooks', express.raw({type: 'application/json'}), new WebhooksController().handle);
+router.post('/webhooks',  new WebhooksController().handle);
 
 export { router };
