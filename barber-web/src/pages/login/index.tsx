@@ -47,8 +47,9 @@ export default function Login(){
             <Input
             background={'barber.400'}
             color={'text.default'}
-            variant={'filled'}
             size={'lg'}
+            variant={'outline'}
+            borderWidth="0.2px" // Define a espessura da borda
             placeholder='Digite seu e-mail'
             type='email'
             mb={3}
@@ -59,7 +60,8 @@ export default function Login(){
             <Input
             background={'barber.400'}
             color={'text.default'}
-            variant={'filled'}
+            variant={'outline'}
+            borderWidth="0.2px" // Define a espessura da borda
             size={'lg'}
             placeholder='********'
             type='password'

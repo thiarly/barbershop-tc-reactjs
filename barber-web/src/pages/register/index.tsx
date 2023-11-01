@@ -50,19 +50,22 @@ export default function Register(){
             <Input
             background={'barber.400'}
             color={'text.default'}
-            variant={'filled'}
+            variant={'outline'}
+            borderWidth="0.2px" // Define a espessura da borda
             size={'lg'}
             placeholder='Nome Barbearia'
             type='text'
             mb={3}
             value={name}
             onChange={ (e) => setName(e.target.value)}
+            
             />
 
             <Input
             background={'barber.400'}
             color={'text.default'}
-            variant={'filled'}
+            variant={'outline'}
+            borderWidth="0.2px" // Define a espessura da borda
             size={'lg'}
             placeholder='Digite seu e-mail'
             type='email'
@@ -74,7 +77,8 @@ export default function Register(){
             <Input
             background={'barber.400'}
             color={'text.default'}
-            variant={'filled'}
+            variant={'outline'}
+            borderWidth="0.2px" // Define a espessura da borda
             size={'lg'}
             placeholder='********'
             type='password'

@@ -1,4 +1,4 @@
-import express, { Router, Request, Response } from 'express';
+import express, { Router, Request, Response, application } from 'express';
 
 import { CreateUserController } from './controllers/user/CreateUserController';
 import { AuthUserController } from './controllers/user/AuthUserController';
@@ -52,7 +52,7 @@ router.delete('/schedule', isAuthenticated, new FinishScheduleController().handl
 // --- ROTAS DE PAGAMENTOS ---
 router.post('/subscribe', isAuthenticated, new SubscribeController().handle);
 // Rota de webhooks com middleware para tratar o corpo da requisição
-router.post('/webhooks',  new WebhooksController().handle);
+router.post('/webhooks', express.raw({type: 'application/json'}), new WebhooksController().handle);
 router.post('/portal', isAuthenticated, new CreatePortalController().handle);
 
 export { router };
