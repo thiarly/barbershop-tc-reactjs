@@ -77,9 +77,9 @@ export default function Dashboard({ schedule }: DashboardProps) {
             </Head>
             <Sidebar>
                 <Flex direction={"column"} align={"flex-start"} justify={"flex-start"}>
-                    <Flex w={100} direction={"row"} align={"center"} justify={"flex-start"}>
+                    <Flex w={'100%'} direction={"row"} align={"center"} justify={"flex-start"}>
                         <Heading fontSize={"3xl"} mt={4} mb={4} mr={4} color={"white"}>
-                            Agenda
+                            Agenda de Serviços
                         </Heading>
                         <Link href={"/new"}>
                             <Button bg={"barber.100"} _hover={{ background: 'gray.100'}}>
@@ -113,7 +113,7 @@ export default function Dashboard({ schedule }: DashboardProps) {
                             >
                                 <Flex direction={"row"} mb={isMobile ? 2 : 0} align={"start"} justify={"start"} flexShrink={0}>
                                     <IoMdPerson size={28} color="orange"/>
-                                    <Text color={"white"} fontWeight={"bold"} noOfLines={1}>
+                                    <Text color={"white"} ml={2} fontWeight={"bold"} noOfLines={1}>
                                         {item?.customer}
                                     </Text>
                                 </Flex>

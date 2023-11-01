@@ -11,6 +11,10 @@ import { AuthContext } from '../../context/AuthContext'
 
 import { canSSRGuest } from '../../utils/canSSRGuest'
 
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+
 
 export default function Register(){
   const { signUp } = useContext(AuthContext)
@@ -19,16 +23,24 @@ export default function Register(){
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
-  async function handleRegister(){
-    if(name === '' && email === '' && password === ''){
+  async function handleRegister() {
+    if (name === '' || email === '' || password === '') {
+      toast.error("Por favor, preencha todos os campos.");
       return;
     }
-      await signUp({
-        name,
-        email,
-        password
-      })
+  
+    try {
+      await signUp({ name, email, password });
+      toast.success("Usuário cadastrado com sucesso!");
+  
+    } catch (error) {
+      // Se ocorrer um erro durante o cadastro, exibe uma mensagem de erro
+      toast.error("Erro ao cadastrar usuário. Tente novamente.");
+      console.error("Erro ao cadastrar usuário:", error);
     }
+  }
+  
+  
 
   return(
     <>
@@ -107,6 +119,7 @@ export default function Register(){
        </Flex>
 
       </Flex>
+      <ToastContainer />
     </>
   )
 }

@@ -10,6 +10,9 @@ import Link from 'next/link'
 import { AuthContext } from '@/src/context/AuthContext'
 
 import { canSSRGuest } from '@/src/utils/canSSRGuest'
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 export default function Login(){
     const { signIn } = useContext(AuthContext)
@@ -20,11 +23,14 @@ export default function Login(){
 
  async function handleLogin(){
     if(email === '' && password === ''){
+      toast.error("Por favor, preencha todos os campos.");
       return;
     }
 
-    await signIn({ email, password })
-  }  
+      await signIn({ email, password })
+      toast.success("Carregando login do usuário...");
+}
+
 
 
   return(
@@ -90,6 +96,7 @@ export default function Login(){
        </Flex>
 
       </Flex>
+      <ToastContainer />
     </>
   )
 }

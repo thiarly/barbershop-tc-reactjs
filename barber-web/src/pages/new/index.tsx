@@ -14,6 +14,9 @@ import {
 import { canSSRAuth } from '@/src/utils/canSSRAuth';
 import { setupAPIClient } from '@/src/services/api';
 import { useRouter } from 'next/router';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 interface HaircutProps{
     id: string;
@@ -53,15 +56,18 @@ export default function New( {haircuts}: NewProps ) {
                 customer,
                 haircut_id: haircutSelected?.id,
             })
-            alert("Agendamento cadastrado com sucesso!")
-            router.push('/dashboard')
+            toast.success("Agendamento cadastrado com sucesso!")
 
 
         }catch(err){
             console.log(err)
-            alert("Erro ao cadastrar agendamento")
+            toast.error("Erro ao cadastrar agendamento")
         }
     }
+
+    const clearInputs = () => {
+        setCustomer("");
+    };
 
     return (
         <>
@@ -105,7 +111,7 @@ export default function New( {haircuts}: NewProps ) {
                     <Select
                         id="haircutSelect"
                         bg={"barber.900"} 
-                        mb={3}
+                        mb={8}
                         size={"lg"}
                         w={"85%"} 
                         color={"gray.100"} 
@@ -119,6 +125,7 @@ export default function New( {haircuts}: NewProps ) {
                     <Button
                         placeholder="Nome do Cliente"
                         size="lg"
+                        mb={4}
                         width={'85%'}
                         bg="button.cta"
                         color="gray.900"
@@ -127,9 +134,18 @@ export default function New( {haircuts}: NewProps ) {
                     >
                         Cadastrar
                     </Button>
+                    <Button
+                            w={"85%"}
+                            size={"lg"}
+                            bg={"barber.100"} 
+                            onClick={clearInputs}
+                        >
+                            Cadastrar novo
+                    </Button>
 
                 </Flex>
             </Sidebar>
+            <ToastContainer />
         </>
     );
 } 

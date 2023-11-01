@@ -13,10 +13,12 @@ import {
 } from '@chakra-ui/react'
 import Link from "next/link";
 import { FiChevronsLeft } from "react-icons/fi";
-import Router from "next/router";
 import { canSSRAuth } from "@/src/utils/canSSRAuth";
 import { setupAPIClient } from "@/src/services/api";
 import { api } from "@/src/services/apiClient";
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 interface NewHaircutProps{
     subscription: boolean;
@@ -37,6 +39,7 @@ export default function NewHaircut( { subscription, count }){
 
     async function handleClick(){
         if (name === "" || price === ""){
+            toast.error("Por favor, preencha todos os campos!");
             return;
         }
         try{
@@ -45,13 +48,19 @@ export default function NewHaircut( { subscription, count }){
                 name: name,
                 price: Number(price)
             })
-            alert("Corte cadastrado com sucesso!")
-            Router.push('/haircuts')
+            toast.success("Corte cadastrado com sucesso!");
+           
         }catch(err){
             console.log(err)
-            alert("Erro ao cadastrar corte")
+            toast.error("Erro ao cadastrar corte");
         }
     }
+
+    const clearInputs = () => {
+        setName("");
+        setPrice("");
+    };
+    
 
     return(
         <>
@@ -122,13 +131,21 @@ export default function NewHaircut( { subscription, count }){
                             size={"lg"}
                             bg={"button.cta"}
                             color={"white"}
-                            mb={"6"}
+                            mb={"4"}
                             _hover={{ bg: '#ffb13e' }}
                             disabled={!subscription && count >= 3} // Ajustado aqui
                             onClick={handleClick}
                             
                         >
                             Cadastrar
+                        </Button>
+                        <Button
+                            w={"85%"}
+                            size={"lg"}
+                            bg={"barber.100"} 
+                            onClick={clearInputs}
+                        >
+                            Cadastrar novo
                         </Button>
 
                         {! subscription && count >= 3 && (
@@ -147,6 +164,7 @@ export default function NewHaircut( { subscription, count }){
                     </Flex>
                 </Flex>
             </Sidebar>
+            <ToastContainer />
         </>
     )
         

@@ -16,6 +16,10 @@ import { FiChevronsLeft } from "react-icons/fi";
 import Link from "next/link";
 import { canSSRAuth } from "@/src/utils/canSSRAuth";
 import { setupAPIClient } from "@/src/services/api";
+import Router from "next/router";
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 
 interface HaircutProps{
@@ -69,11 +73,15 @@ export default function EditarHaircut({ subscription, haircut}){
                 price: Number(price),
                 status: status,
               })
-              alert("Corte atualizado com sucesso!")
+              toast.success("Serviço atualizado!");
+              // Aguardar alguns segundos antes de redirecionar
+                setTimeout(() => {
+                    Router.push('/haircuts');
+                }, 6000); // Espera 3 segundos
 
         }catch(err){
             console.log(err)
-            alert("Erro ao atualizar corte")
+            toast.error("Erro ao atualizar serviço");
         }
     }
         
@@ -177,6 +185,7 @@ export default function EditarHaircut({ subscription, haircut}){
                 
                 </Flex>
                 </Sidebar>
+                <ToastContainer />
             
         </>
     )

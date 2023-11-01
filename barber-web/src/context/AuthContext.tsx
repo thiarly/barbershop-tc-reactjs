@@ -4,6 +4,9 @@ import Router from 'next/router';
 
 import { api } from '../services/apiClient';
 
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 interface AuthContextData {
     user: UserProps | undefined; // Se futuramente tiver algum erro adicionei undefined e nao desativei o strictNullChecks
     isAuthenticated: boolean;
@@ -99,12 +102,16 @@ export function AuthProvider({ children }: AuthProviderProps){
             });
 
             api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-
-            Router.push('/dashboard');
+            
+            // rota para login apos a mensagem do toast
+            setTimeout(() => {
+                Router.push('/dashboard');
+            }, 6000); // Espera 3 segundos antes de redirecionar
+            
 
        } catch(err) {
             console.error("Falha ao tentar autenticar o usuário:", err.message);
-            alert('Erro ao tentar fazer login. Verifique suas credenciais e tente novamente.');
+            toast.error("Falha ao tentar autenticar o usuário. Por favor, tente novamente.");
        }
     }
 
@@ -115,7 +122,11 @@ export function AuthProvider({ children }: AuthProviderProps){
                 email,
                 password,
             });
-            Router.push('/login');
+            // settime para redirecionar para login
+            setTimeout(() => {
+                Router.push('/login');
+            }, 6000); // Espera 3 segundos antes de redirecionar
+            
 
         }catch(err){
             console.log("Falha ao tentar cadastrar o usuário:", err);
@@ -138,3 +149,4 @@ export function AuthProvider({ children }: AuthProviderProps){
         </AuthContext.Provider>
     )
 }
+<ToastContainer />
