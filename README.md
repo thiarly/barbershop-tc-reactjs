@@ -25,8 +25,10 @@ Barber TC é um sistema inovador, desenvolvido especialmente para atender às ne
 
 **#BarberTC #SistemaParaBarbearia #TecnologiaBarbearia #AgendamentoOnline #BarbeariaDigital #Inovação**
 
+* **Página de Login**
 ![Screenshot 2023-11-01 at 16 10 15](https://github.com/thiarly/barbershop-tc-reactjs/assets/13594903/fa39cdd2-d4cb-4afd-925d-5f56a2efa313)
 
+* **Página de Cadastro**
 ![Screenshot 2023-11-01 at 16 10 29](https://github.com/thiarly/barbershop-tc-reactjs/assets/13594903/1f73bda7-bc27-4bb5-82f4-0b7380b3da9d)
 
 ![Screenshot 2023-11-01 at 16 11 11](https://github.com/thiarly/barbershop-tc-reactjs/assets/13594903/4abe6d65-6789-4e67-abc3-47d37b00c6df)
