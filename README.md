@@ -10,8 +10,20 @@ Barber TC é um sistema inovador, desenvolvido especialmente para atender às ne
 - **Interface Elegante:** Desenvolvido com Chakra UI, garantindo uma experiência de usuário suave e agradável.
 
 
+# 💡 Tecnologias Utilizadas:
+- **TypeScript:** Para uma codificação mais confiável e manutenível.
+- **React:** Para uma interface de usuário reativa e dinâmica.
+- **Stripe:** Para pagamentos seguros e confiáveis.
+- **Webhooks:** Para integrações em tempo real.
+- **PostgreSQL:** Para armazenamento de dados robusto e escalável.
+- **Toast:** Para notificações interativas e informativas.
+- **API personalizada:** Conectando frontend e backend de maneira eficiente.
 
-#BarberTC #SistemaParaBarbearia #TecnologiaBarbearia #AgendamentoOnline #BarbeariaDigital #Inovação
+# 🌐 O Barber TC é mais do que apenas um sistema; é uma solução completa que transforma a maneira como as barbearias operam. Seja para gerenciar agendamentos ou oferecer uma variedade de serviços, o Barber TC está aqui para fazer a diferença.
+
+- 💼 Se você está buscando modernizar sua barbearia ou conhece alguém no segmento, não deixe de explorar o que o Barber TC tem a oferecer!
+
+**#BarberTC #SistemaParaBarbearia #TecnologiaBarbearia #AgendamentoOnline #BarbeariaDigital #Inovação**
 
 ![Screenshot 2023-11-01 at 16 10 15](https://github.com/thiarly/barbershop-tc-reactjs/assets/13594903/fa39cdd2-d4cb-4afd-925d-5f56a2efa313)
 
