@@ -31,22 +31,26 @@ Barber TC é um sistema inovador, desenvolvido especialmente para atender às ne
 * **Página de Cadastro**
 ![Screenshot 2023-11-01 at 16 10 29](https://github.com/thiarly/barbershop-tc-reactjs/assets/13594903/1f73bda7-bc27-4bb5-82f4-0b7380b3da9d)
 
+* **Página que lista todos os agendamentos**
 ![Screenshot 2023-11-01 at 16 11 11](https://github.com/thiarly/barbershop-tc-reactjs/assets/13594903/4abe6d65-6789-4e67-abc3-47d37b00c6df)
 
+* **Página de cadastro de agendamento**
 ![Screenshot 2023-11-01 at 16 11 34](https://github.com/thiarly/barbershop-tc-reactjs/assets/13594903/13ec2f9c-4bfb-4959-bf68-b1616a70f6dc)
 
-![Screenshot 2023-11-01 at 16 11 59](https://github.com/thiarly/barbershop-tc-reactjs/assets/13594903/49081c0b-b622-41fa-bf69-9e8177005ca6)
-
-![Screenshot 2023-11-01 at 16 12 25](https://github.com/thiarly/barbershop-tc-reactjs/assets/13594903/55711107-d418-43c1-ac4c-a0dd5b7e92d4)
-
+* **Página do modal para finalizar serviço**
 ![Screenshot 2023-11-01 at 16 12 43](https://github.com/thiarly/barbershop-tc-reactjs/assets/13594903/08a55bea-6617-4dac-828a-acc5c4c3f093)
 
+* **Página mostrando mensagens toast**
 ![Screenshot 2023-11-01 at 16 12 59](https://github.com/thiarly/barbershop-tc-reactjs/assets/13594903/dc2bcc01-bd1f-470e-b16f-e58f17a15371)
 
+* **Página minha conta**
 ![Screenshot 2023-11-01 at 16 13 16](https://github.com/thiarly/barbershop-tc-reactjs/assets/13594903/661c0528-89e8-4dc6-a1cd-189a687e7a73)
 
+* **Página de planos**
 ![Screenshot 2023-11-01 at 16 13 34](https://github.com/thiarly/barbershop-tc-reactjs/assets/13594903/9abd308c-8e09-49cd-a039-8a3475addd3e)
 
+* **Página de pagamento assinatura com stripe**
 ![Screenshot 2023-11-01 at 16 13 59](https://github.com/thiarly/barbershop-tc-reactjs/assets/13594903/c314ea2e-c375-4429-ae67-01987581bad3)
 
+* **Página para alterar plano**
 ![Screenshot 2023-11-01 at 16 14 32](https://github.com/thiarly/barbershop-tc-reactjs/assets/13594903/59e53726-ff51-4c1e-b399-5d169c00703a)
