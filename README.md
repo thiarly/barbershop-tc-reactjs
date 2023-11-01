@@ -4,7 +4,7 @@ Barber TC é um sistema inovador, desenvolvido especialmente para atender às ne
 
 # ✨ Características Principais:
 
-* Cadastro de Serviços: Ofereça uma ampla gama de serviços com facilidade.
+* ###Cadastro de Serviços:### Ofereça uma ampla gama de serviços com facilidade.
 * Planos Flexíveis: Usuários premium desfrutam de acesso ilimitado a todas as funcionalidades, enquanto usuários free podem cadastrar até 3 serviços.
 * Sistema de Agendamento: Agende clientes e associe serviços previamente cadastrados, tudo em uma interface intuitiva.
 * Interface Elegante: Desenvolvido com Chakra UI, garantindo uma experiência de usuário suave e agradável.
