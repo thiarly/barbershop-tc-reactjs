@@ -18,6 +18,7 @@ import { FinishScheduleController } from './controllers/schedule/FinishScheduleC
 
 import { SubscribeController } from './controllers/subscription/SubscribeController';
 import { WebhooksController } from './controllers/subscription/WebhooksController';
+import { CreatePortalController } from './controllers/subscription/CreatePortalController';
 
 import { isAuthenticated } from './middlewares/isAuthenticated';
 
@@ -52,5 +53,6 @@ router.delete('/schedule', isAuthenticated, new FinishScheduleController().handl
 router.post('/subscribe', isAuthenticated, new SubscribeController().handle);
 // Rota de webhooks com middleware para tratar o corpo da requisição
 router.post('/webhooks',  new WebhooksController().handle);
+router.post('/portal', isAuthenticated, new CreatePortalController().handle);
 
 export { router };
