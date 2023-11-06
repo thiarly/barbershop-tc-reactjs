@@ -15,6 +15,7 @@ import {FiUser, FiScissors} from 'react-icons/fi'
 import { FaMoneyBillAlt } from "react-icons/fa";
 import {ScheduleItem} from '../../pages/dashboard'
 
+
 interface ModalInfoProps {
     isOpen: boolean;
     onOpen: () => void;

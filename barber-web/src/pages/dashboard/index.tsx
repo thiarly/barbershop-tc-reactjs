@@ -17,6 +17,8 @@ import Link from "next/link";
 import { IoMdPerson } from "react-icons/io";
 import { setupAPIClient } from '../../services/api'
 import { ModalInfo } from "@/src/components/modal";
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 export interface ScheduleItem {
@@ -55,7 +57,7 @@ export default function Dashboard({ schedule }: DashboardProps) {
                 }
             });
 
-            alert("Serviço finalizado com sucesso");
+            toast.success("Serviço finalizado com sucesso!");
 
             const filterItem = list.filter((item) => {
                 return (item.id !== id);
@@ -142,7 +144,7 @@ export default function Dashboard({ schedule }: DashboardProps) {
                 data={service}
                 finishService={async () => handleFinish(service?.id)}
             />
-            
+           <ToastContainer /> 
         </>
     )
 }

@@ -26,7 +26,7 @@ export default function Home() {
 
               <Text color={'gray.900'} textAlign={'center'}>Desde agendamentos simplificados até o gerenciamento de diferentes estilos e serviços, Barber TC é a escolha certa para barbeiros que buscam excelência e clientes satisfeitos. Venha descobrir um mundo onde estilo e tecnologia se encontram.</Text>
 
-              <Link href="/register" _hover={{ textDecoration: 'none' }}>
+              <Link href="/login" _hover={{ textDecoration: 'none' }}>
                 <Button colorScheme="orange" size="lg">Registre-se Agora</Button>
               </Link>
             </VStack>

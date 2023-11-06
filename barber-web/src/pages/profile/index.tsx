@@ -14,6 +14,9 @@ import Link from "next/link";
 import { canSSRAuth } from "@/src/utils/canSSRAuth";
 import { AuthContext } from "@/src/context/AuthContext";
 import { setupAPIClient } from "@/src/services/api";
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 interface UserProps{
     id: string;
@@ -50,7 +53,7 @@ export default function Profile({ user, premium }: ProfileProps){
                 name: name,
                 endereco: endereco
             })
-            alert("Dados atualizados com sucesso!")
+            toast.success("Dados atualizados com sucesso!")
 
         }catch(err){
             console.log(err)
@@ -157,6 +160,7 @@ export default function Profile({ user, premium }: ProfileProps){
                     </Flex>
                 </Flex>
             </Sidebar>
+            <ToastContainer />
         </>
     )
 }
